@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class PlaySceneMNG : MonoBehaviour
     public Text workTimeText;
     public Text memoText;
     public GameObject memoList; // 메모를 띄울 공간
+    public CustomerGenerator csGen; // 고객 제네레이터
 
     [SerializeField]
     float sec;
@@ -17,6 +19,8 @@ public class PlaySceneMNG : MonoBehaviour
     int min;
     int workTime = 1; //게임중 몇일차인지
     int rand;
+    [SerializeField]
+    bool isNewCustomer = true;
 
     void Start()
     {
@@ -28,7 +32,17 @@ public class PlaySceneMNG : MonoBehaviour
     {
         GameTime();
         EnterEscape();
-        TodaysWarning();
+
+        if(isNewCustomer)
+        {
+            isNewCustomer = false;
+            for(int i =0; i < csGen.customerList.Count(); i++)
+            {
+                csGen.customerList[i].SetActive(false);
+            }
+            csGen.RandomCustomerCase();
+        }
+        SellItem();
     }
 
     public void OpenMemo()
@@ -58,6 +72,7 @@ public class PlaySceneMNG : MonoBehaviour
         {
             min = 0;
             workTime++;
+            TodaysWarning();
             rand = Random.Range(0, 3);
         }
         workTimeText.text = workTime.ToString();
@@ -95,6 +110,14 @@ public class PlaySceneMNG : MonoBehaviour
                     memoText.text = "*민증v\n*신선식품 재고x";
                     break;
             }
+        }
+    }
+
+    void SellItem()
+    {
+        if(Input.GetKeyDown(KeyCode.A)) 
+        {
+            isNewCustomer = true;
         }
     }
 }
