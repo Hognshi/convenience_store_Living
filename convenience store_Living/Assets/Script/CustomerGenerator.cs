@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CustomerGenerator : MonoBehaviour
 {
     public GameObject[] customerList;
+    public GameObject textBox;
+    public GameObject customerTextGameObject;
+    public Text customerText;
 
     public int randomCustomer;
     public int customerCase;
     // Start is called before the first frame update
     void Start()
     {
-        
+        RandomCustomerCase();
     }
 
     // Update is called once per frame
@@ -23,8 +27,9 @@ public class CustomerGenerator : MonoBehaviour
     public void RandomCustomerCase()
     {
         randomCustomer = Random.Range(0, 6);
-
-        switch(randomCustomer) //고객 나이대 유형
+        textBox.SetActive(true);
+        customerTextGameObject.SetActive(true);
+        switch (randomCustomer) //고객 나이대 유형
         {
             case 0:
                 customerList[0].SetActive(true);
@@ -32,10 +37,13 @@ public class CustomerGenerator : MonoBehaviour
                 switch(customerCase)
                 {
                     case 0:
+                        customerText.text = "0손님 0케이스";
                         break; 
                     case 1:
+                        customerText.text = "0손님 1케이스";
                         break; 
                     case 2:
+                        customerText.text = "0손님 2케이스";
                         break;
                 }
                 break; 
@@ -45,10 +53,13 @@ public class CustomerGenerator : MonoBehaviour
                 switch (customerCase)
                 {
                     case 0:
+                        customerText.text = "1손님 0케이스";
                         break;
                     case 1:
+                        customerText.text = "1손님 1케이스";
                         break;
                     case 2:
+                        customerText.text = "1손님 2케이스";
                         break;
                 }
                 break; 
@@ -58,10 +69,13 @@ public class CustomerGenerator : MonoBehaviour
                 switch (customerCase)
                 {
                     case 0:
+                        customerText.text = "2손님 0케이스";
                         break;
                     case 1:
+                        customerText.text = "2손님 1케이스";
                         break;
                     case 2:
+                        customerText.text = "2손님 2케이스";
                         break;
                 }
                 break; 
@@ -71,10 +85,13 @@ public class CustomerGenerator : MonoBehaviour
                 switch(customerCase)
                 {
                     case 0:
+                        customerText.text = "3손님 0케이스";
                         break; 
                     case 1:
+                        customerText.text = "3손님 1케이스";
                         break; 
                     case 2:
+                        customerText.text = "3손님 2케이스";
                         break;
                 }
                 break; 
@@ -84,10 +101,13 @@ public class CustomerGenerator : MonoBehaviour
                 switch (customerCase)
                 {
                     case 0:
+                        customerText.text = "4손님 0케이스";
                         break;
                     case 1:
+                        customerText.text = "4손님 1케이스";
                         break;
                     case 2:
+                        customerText.text = "4손님 2케이스";
                         break;
                 }
                 break; 
@@ -97,10 +117,13 @@ public class CustomerGenerator : MonoBehaviour
                 switch (customerCase)
                 {
                     case 0:
+                        customerText.text = "5손님 0케이스";
                         break;
                     case 1:
+                        customerText.text = "5손님 1케이스";
                         break;
                     case 2:
+                        customerText.text = "5손님 2케이스";
                         break;
                 }
                 break;
