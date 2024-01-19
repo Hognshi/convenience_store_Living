@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ public class StartSceneMNG : MonoBehaviour
     public Text living;
     public Button start;
     public Button quit;
+    public GameObject sTart;
+    public GameObject qUit;
 
     string dialogue;
     string dialoguee;
@@ -51,6 +54,9 @@ public class StartSceneMNG : MonoBehaviour
             living.text += talkk[i];
             yield return new WaitForSeconds(0.05f);
         }
+        yield return new WaitForSeconds(0.05f);
+        sTart.SetActive(true);
+        qUit.SetActive(true);
     }
 
     public void StartBTN()

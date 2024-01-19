@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &170211219
 RectTransform:
   m_ObjectHideFlags: 0
@@ -288,6 +288,8 @@ MonoBehaviour:
   living: {fileID: 1311086338}
   start: {fileID: 1878802694}
   quit: {fileID: 170211220}
+  sTart: {fileID: 1878802692}
+  qUit: {fileID: 170211218}
 --- !u!4 &507396883
 Transform:
   m_ObjectHideFlags: 0
@@ -802,7 +804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1878802693
 RectTransform:
   m_ObjectHideFlags: 0
