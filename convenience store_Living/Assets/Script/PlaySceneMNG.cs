@@ -11,6 +11,7 @@ public class PlaySceneMNG : MonoBehaviour
     public Button memoBTN; 
     public Button sellBTN; //계산 버튼
     public Button closeDayOverScreenBTN;
+    public Button sellCompleteBTN;
 
     public Text workTimeText;
     public Text memoText;
@@ -41,6 +42,7 @@ public class PlaySceneMNG : MonoBehaviour
         memoBTN.onClick.AddListener(OpenMemo);
         sellBTN.onClick.AddListener(SellItem);
         closeDayOverScreenBTN.onClick.AddListener(CloseDayOverScreen);
+        sellCompleteBTN.onClick.AddListener(SellCompleteBTN);
     }
 
 
@@ -58,7 +60,6 @@ public class PlaySceneMNG : MonoBehaviour
             }
             csGen.RandomCustomerCase();
         }
-        ChangeCustomer();
     }
 
     public void OpenMemo()
@@ -132,17 +133,15 @@ public class PlaySceneMNG : MonoBehaviour
         }
     }
 
-    void ChangeCustomer()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            isNewCustomer = true;
-        }
-    }
-
     public void SellItem()
     {
         sellPlace.SetActive(true);
+    }
+
+    public void SellCompleteBTN()
+    {
+        sellPlace.SetActive(false);
+        isNewCustomer = true;
     }
 
     public void CloseDayOverScreen()
