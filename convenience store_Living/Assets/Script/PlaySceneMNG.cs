@@ -5,9 +5,12 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class PlaySceneMNG : MonoBehaviour
 {
+    public PosMNG pos;
+
     public Button memoBTN; 
     public Button sellBTN; //계산 버튼
     public Button closeDayOverScreenBTN;
@@ -23,7 +26,7 @@ public class PlaySceneMNG : MonoBehaviour
     public GameObject completeButton; // 완료 버튼 끄고 키기
     public CustomerGenerator csGen; // 고객 제네레이터
 
-    public int todayIncome; //하루 수익
+    public int totalMoney; // 하루 총수익
 
     [SerializeField]
     float sec;
@@ -34,6 +37,13 @@ public class PlaySceneMNG : MonoBehaviour
     string dialogue; // 수익 출력을 위한 문자열
     [SerializeField]
     bool isNewCustomer = true;
+
+    int choMoney = 1000;
+    int alcMoney = 1500;
+    int freshMoney = 3000;
+    int snaMoney = 1500;
+    int cigaMoney = 4500;
+    int canMoney = 500;
 
     void Start()
     {
@@ -133,6 +143,12 @@ public class PlaySceneMNG : MonoBehaviour
         }
     }
 
+    void CountMoney() //한 손님당 받은 가격 충 수익에 더하기
+    {
+        totalMoney += (pos.choCount * choMoney) + (pos.alcCount * alcMoney) + (pos.freshCount * freshMoney) + (pos.snaCount * snaMoney)
+            + (pos.cigaCount * cigaMoney) + (pos.canCount * canMoney);
+    }
+
     public void SellItem()
     {
         sellPlace.SetActive(true);
@@ -140,6 +156,20 @@ public class PlaySceneMNG : MonoBehaviour
 
     public void SellCompleteBTN()
     {
+        CountMoney();
+        pos.choCount = 0;
+        pos.alcCount = 0;
+        pos.freshCount = 0;
+        pos.snaCount = 0;
+        pos.cigaCount = 0;
+        pos.canCount = 0;
+
+        pos.chocolateCount.text = pos.choCount.ToString();
+        pos.alcoholCount.text = pos.alcCount.ToString();
+        pos.freshFoodCount.text = pos.freshCount.ToString();
+        pos.snackCount.text = pos.snaCount.ToString();
+        pos.cigaretteCount.text = pos.cigaCount.ToString();
+        pos.candyCount.text = pos.canCount.ToString();
         sellPlace.SetActive(false);
         isNewCustomer = true;
     }
