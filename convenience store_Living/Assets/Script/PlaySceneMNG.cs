@@ -10,6 +10,7 @@ using static UnityEditor.PlayerSettings;
 public class PlaySceneMNG : MonoBehaviour
 {
     public PosMNG pos;
+    public CustomerGenerator csGen;
 
     public Button memoBTN; 
     public Button sellBTN; //계산 버튼
@@ -19,14 +20,21 @@ public class PlaySceneMNG : MonoBehaviour
     public Text workTimeText;
     public Text memoText;
     public Text incomeText;
+    public Text outcomeText;
+    public Text orderText;//주문 확인 텍스트
     public GameObject memoList; // 메모를 띄울 공간
     public GameObject sellPlace; // 판매품을 띄우는 공간
     public GameObject oneDayOverScreen; // 판매품을 띄우는 공간
-    public GameObject openIncomeText; // 수입 텍스트 보이게 하기
-    public GameObject completeButton; // 완료 버튼 끄고 키기
-    public CustomerGenerator csGen; // 고객 제네레이터
 
-    public int totalMoney; // 하루 총수익
+    public GameObject chocolate;
+    public GameObject alcohol; 
+    public GameObject freshFood;
+    public GameObject snack; 
+    public GameObject cigarette; 
+    public GameObject candy; 
+
+    public int totalMoney; // 하루 총 수익
+    public int lostMoney; // 하루 총 손해액
 
     [SerializeField]
     float sec;
@@ -34,7 +42,6 @@ public class PlaySceneMNG : MonoBehaviour
     int min;
     int workTime = 1; //게임중 몇일차인지
     int rand;
-    string dialogue; // 수익 출력을 위한 문자열
     [SerializeField]
     bool isNewCustomer = true;
 
@@ -49,10 +56,6 @@ public class PlaySceneMNG : MonoBehaviour
     {
         rand = Random.Range(0, 3);
         TodaysWarning();
-        memoBTN.onClick.AddListener(OpenMemo);
-        sellBTN.onClick.AddListener(SellItem);
-        closeDayOverScreenBTN.onClick.AddListener(CloseDayOverScreen);
-        sellCompleteBTN.onClick.AddListener(SellCompleteBTN);
     }
 
 
@@ -99,8 +102,7 @@ public class PlaySceneMNG : MonoBehaviour
         if (min >= 5)
         {
             workTime++;
-            oneDayOverScreen.SetActive(true);
-            Time.timeScale = 0;
+            OneDayOver();
             min = 0;
             TodaysWarning();
             rand = Random.Range(0, 3);
@@ -149,13 +151,54 @@ public class PlaySceneMNG : MonoBehaviour
             + (pos.cigaCount * cigaMoney) + (pos.canCount * canMoney);
     }
 
+    void OneDayOver()
+    {
+        Time.timeScale = 0;
+        oneDayOverScreen.SetActive(true);
+        outcomeText.text = $"오늘 손해 금액 : {lostMoney}";
+        incomeText.text = $"오늘 수입 금액 : {totalMoney}";
+    }
+
+    void SellPlaceOrderMemo()
+    {
+        for(int i = 0; i < csGen.itemSize; i++)
+        {
+            if (csGen.itemPick[i] == chocolate)
+            {
+                orderText.text += "초콜릿\n";
+            }
+            if (csGen.itemPick[i] == alcohol)
+            {
+                orderText.text += "술\n";
+            }
+            if (csGen.itemPick[i] == freshFood)
+            {
+                orderText.text += "신선식품\n";
+            }
+            if (csGen.itemPick[i] == snack)
+            {
+                orderText.text += "과자\n";
+            }
+            if (csGen.itemPick[i] == cigarette)
+            {
+                orderText.text += "담배\n";
+            }
+            if (csGen.itemPick[i] == candy)
+            {
+                orderText.text += "사탕\n";
+            }
+        }
+    }
+
     public void SellItem()
     {
         sellPlace.SetActive(true);
+        SellPlaceOrderMemo();
     }
 
     public void SellCompleteBTN()
     {
+        orderText.text = null;
         CountMoney();
         pos.choCount = 0;
         pos.alcCount = 0;
@@ -176,8 +219,6 @@ public class PlaySceneMNG : MonoBehaviour
 
     public void CloseDayOverScreen()
     {
-        openIncomeText.SetActive(false);
-        completeButton.SetActive(false);
         oneDayOverScreen.SetActive(false);
         Time.timeScale = 1;
     }
