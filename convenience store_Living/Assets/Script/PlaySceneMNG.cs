@@ -12,17 +12,18 @@ public class PlaySceneMNG : MonoBehaviour
     public PosMNG pos;
     public CustomerGenerator csGen;
 
-    public Button memoBTN; 
     public Button sellBTN; //계산 버튼
     public Button closeDayOverScreenBTN;
     public Button sellCompleteBTN;
+
+    public Image sun;
 
     public Text workTimeText;
     public Text memoText;
     public Text incomeText;
     public Text outcomeText;
     public Text orderText;//주문 확인 텍스트
-    public GameObject memoList; // 메모를 띄울 공간
+
     public GameObject sellPlace; // 판매품을 띄우는 공간
     public GameObject oneDayOverScreen; // 판매품을 띄우는 공간
 
@@ -41,7 +42,6 @@ public class PlaySceneMNG : MonoBehaviour
     [SerializeField]
     int min;
     int workTime = 1; //게임중 몇일차인지
-    int rand;
     [SerializeField]
     bool isNewCustomer = true;
 
@@ -54,8 +54,6 @@ public class PlaySceneMNG : MonoBehaviour
 
     void Start()
     {
-        rand = Random.Range(0, 3);
-        TodaysWarning();
     }
 
 
@@ -75,16 +73,12 @@ public class PlaySceneMNG : MonoBehaviour
         }
     }
 
-    public void OpenMemo()
-    {
-        memoList.SetActive(true);
-    }
 
     void EnterEscape() //esc눌렀을때 꺼짐
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            memoList.SetActive(false);
+            orderText.text = null;
             sellPlace.SetActive(false);
         }
     }
@@ -92,7 +86,7 @@ public class PlaySceneMNG : MonoBehaviour
     void GameTime()
     {
         sec += Time.deltaTime;
-
+        sun.fillAmount = 1 - (sec + min * 60) / 300;
         if ((int)sec == 60)
         {
             min++;
@@ -104,51 +98,101 @@ public class PlaySceneMNG : MonoBehaviour
             workTime++;
             OneDayOver();
             min = 0;
-            TodaysWarning();
-            rand = Random.Range(0, 3);
         }
         workTimeText.text = workTime.ToString();
     }
 
-    void TodaysWarning() // 메모에 적히는 금일 주의사항
-    {
-
-        if (workTime >= 15)
-        {
-            switch (rand)
-            {
-                case 0:
-                    memoText.text = "*민증v\n*운전면허증\n*푸키먼 빵o";
-                    break;
-                case 1:
-                    memoText.text = "*민증v\n*운전면허증\n*담배 재고x";
-                    break;
-                case 2:
-                    memoText.text = "*민증V\n*운전면허증\n*신선식품 재고x";
-                    break;
-            }
-        }
-        else if (workTime < 15)
-        {
-            switch (rand)
-            {
-                case 0:
-                    memoText.text = "*민증v\n*푸키먼 빵o";
-                    break;
-                case 1:
-                    memoText.text = "*민증v\n*담배 재고x";
-                    break;
-                case 2:
-                    memoText.text = "*민증v\n*신선식품 재고x";
-                    break;
-            }
-        }
-    }
 
     void CountMoney() //한 손님당 받은 가격 충 수익에 더하기
     {
-        totalMoney += (pos.choCount * choMoney) + (pos.alcCount * alcMoney) + (pos.freshCount * freshMoney) + (pos.snaCount * snaMoney)
-            + (pos.cigaCount * cigaMoney) + (pos.canCount * canMoney);
+        int countMoney = 0; //정답 돈을 계산하기 위함
+        int lost = 0;
+        for (int i = 0; i < csGen.itemSize; i++)
+        {
+            if (csGen.itemPick[i] == chocolate)
+            {
+                countMoney += choMoney;
+                pos.choCount--;
+            }
+            else if (csGen.itemPick[i] == alcohol)
+            {
+                countMoney += alcMoney;
+                pos.alcCount--;
+            }
+            else if (csGen.itemPick[i] == freshFood)
+            {
+                countMoney += freshMoney;
+                pos.freshCount--;
+            }
+            else if (csGen.itemPick[i] == snack)
+            {
+                countMoney += snaMoney;
+                pos.snaCount--;
+            }
+            else if (csGen.itemPick[i] == cigarette)
+            {
+                countMoney += cigaMoney;
+                pos.cigaCount--;
+            }
+            else if (csGen.itemPick[i] == candy)
+            {
+                countMoney += canMoney;
+                pos.canCount--;
+            }
+        }
+        lost = 0;
+
+        if(pos.choCount != 0)
+        {
+            if(pos.choCount < 0)
+            {
+                pos.choCount *= -1;
+            }
+            lost += pos.choCount* choMoney;
+        }
+        else if (pos.alcCount != 0)
+        {
+            if (pos.alcCount < 0)
+            {
+                pos.alcCount *= -1;
+            }
+            lost += pos.alcCount * alcMoney;
+        }
+        else if (pos.freshCount != 0)
+        {
+            if (pos.freshCount < 0)
+            {
+                pos.freshCount *= -1;
+            }
+            lost += pos.freshCount * freshMoney;
+        }
+        else if (pos.snaCount != 0)
+        {
+            if (pos.snaCount < 0)
+            {
+                pos.snaCount *= -1;
+            }
+            lost += pos.snaCount * snaMoney;
+        }
+        else if (pos.cigaCount != 0)
+        {
+            if (pos.cigaCount < 0)
+            {
+                pos.cigaCount *= -1;
+            }
+            lost += pos.cigaCount * cigaMoney;
+        }
+        else if (pos.canCount != 0)
+        {
+            if (pos.canCount < 0)
+            {
+                pos.canCount *= -1;
+            }
+            lost += pos.canCount * canMoney;
+        }
+
+        totalMoney += countMoney - lost;
+        lostMoney += lost;
     }
 
     void OneDayOver()
@@ -187,6 +231,14 @@ public class PlaySceneMNG : MonoBehaviour
             {
                 orderText.text += "사탕\n";
             }
+        }
+    }
+
+    void GameEnding()
+    {
+        if(lostMoney >= 100000)
+        {
+            Time.timeScale = 0;
         }
     }
 

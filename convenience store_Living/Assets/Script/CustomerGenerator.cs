@@ -34,7 +34,7 @@ public class CustomerGenerator : MonoBehaviour
         textBox.SetActive(true);
         customerTextGameObject.SetActive(true);
         customerCase = Random.Range(0, 3); //고객 인성 유형
-        itemSize = Random.Range(0, 5); //들고 올 아이템 갯수
+        itemSize = Random.Range(1, 6); //들고 올 아이템 갯수
 
         for (int i = 0; i < itemSize; i++)
         {
