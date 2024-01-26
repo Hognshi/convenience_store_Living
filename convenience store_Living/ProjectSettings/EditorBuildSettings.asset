@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayScene.unity
     guid: de1b89e0696858045850431b6ea26ad2
+  - enabled: 1
+    path: Assets/Scenes/FailEnding.unity
+    guid: 0ad3d10360fe5854dba3aa235fdeaec9
+  - enabled: 1
+    path: Assets/Scenes/SuccessEnding.unity
+    guid: b7df40ca84c97944d89c4c8a62489a31
   m_configObjects: {}

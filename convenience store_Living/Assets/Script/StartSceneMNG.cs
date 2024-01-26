@@ -36,7 +36,7 @@ public class StartSceneMNG : MonoBehaviour
 
     IEnumerator Typing(string talk) //https://maintaining.tistory.com/entry/Unity-Text%EC%97%90-%ED%83%80%EC%9D%B4%ED%95%91-%EB%AA%A8%EC%85%98-%EB%84%A3%EA%B8%B0
     {
-        living.text = null; // 문자열 초기화
+        busy.text = null; // 문자열 초기화
 
         for (int i = 0; i < talk.Length; i++)
         {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEditor.PlayerSettings;
 
@@ -41,6 +42,7 @@ public class PlaySceneMNG : MonoBehaviour
     float sec;
     [SerializeField]
     int min;
+    [SerializeField]
     int workTime = 1; //게임중 몇일차인지
     [SerializeField]
     bool isNewCustomer = true;
@@ -71,6 +73,7 @@ public class PlaySceneMNG : MonoBehaviour
             }
             csGen.RandomCustomerCase();
         }
+        GameEnding();
     }
 
 
@@ -238,7 +241,11 @@ public class PlaySceneMNG : MonoBehaviour
     {
         if(lostMoney >= 100000)
         {
-            Time.timeScale = 0;
+            SceneManager.LoadScene("FailEnding");
+        }
+        if (workTime >= 16)
+        {
+            SceneManager.LoadScene("SuccessEnding");
         }
     }
 
