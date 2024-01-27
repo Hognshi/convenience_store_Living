@@ -6,14 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class SuccessEndingMNG : MonoBehaviour
 {
+    public AudioSource aud;
     public Text success;
     public GameObject exit;
     public GameObject retry;
-    string successText;
+    public string successText;
     // Start is called before the first frame update
     void Start()
     {
-        successText = "당신이 알바를 시작 한 이래로\n수익이 막대하게 늘어났습니다.\n이로 인해 당신은\n보너스를 받게 되었습니다";
+        Time.timeScale = 1;
+        successText = "당신은 단기 알바를\n성공하셨습니다.\n이로 인해 당신은\n보너스를 받게 되었습니다";
         StartCoroutine(Typing(successText));
     }
 
@@ -47,10 +49,12 @@ public class SuccessEndingMNG : MonoBehaviour
 
     public void StartBTN()
     {
+        aud.Play();
         SceneManager.LoadScene("PlayScene");
     }
     public void QuitBTN()
     {
+        aud.Play();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

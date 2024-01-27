@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class StorySceneMNG : MonoBehaviour
 {
+    public AudioSource aud;
     public GameObject closeBTN;
     public Text story;
     public Text warning;
@@ -16,7 +17,7 @@ public class StorySceneMNG : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        storyText = "당신은 15일 편의점 단기 알바에\n합격하게 되었음을 알려드립니다\n아래의 버튼을 눌러 출근하세요.";
+        storyText = "당신은 5일 편의점 단기 알바에\n합격하게 되었음을 알려드립니다\n아래의 버튼을 눌러 출근하세요.";
         StartCoroutine(Typing(storyText));
 
         warningText = "모든 상호작용은 마우스 왼쪽 클릭으로\n진행됨을 알려드립니다.";
@@ -31,10 +32,12 @@ public class StorySceneMNG : MonoBehaviour
 
     public void SkipBTN()
     {
+        aud.Play();
         SceneManager.LoadScene("PlayScene");
     }
     public void CloseBTN()
     {
+        aud.Play();
         SceneManager.LoadScene("PlayScene");
     }
 

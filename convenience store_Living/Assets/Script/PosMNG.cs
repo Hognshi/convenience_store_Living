@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PosMNG : MonoBehaviour
 {
     public PlaySceneMNG prMNG;
+    public AudioSource aud;
+
     public Button chocolatePlus;
     public Button chocolateMinus;
 
@@ -51,12 +53,14 @@ public class PosMNG : MonoBehaviour
 
     public void ChoPlusBTN()
     {
+        aud.Play();
         choCount++;
         chocolateCount.text = choCount.ToString();
     }
 
     public void ChoMinusBTN()
     {
+        aud.Play();
         choCount--;
         if(choCount < 0)
         {
@@ -67,11 +71,13 @@ public class PosMNG : MonoBehaviour
 
     public void AlcPlusBTN()
     {
+        aud.Play();
         alcCount++;
         alcoholCount.text = alcCount.ToString();
     }
     public void AlcMinusBTN()
     {
+        aud.Play();
         alcCount--;
         if (alcCount < 0)
         {
@@ -82,11 +88,13 @@ public class PosMNG : MonoBehaviour
 
     public void FreshPlusBTN()
     {
+        aud.Play();
         freshCount++;
         freshFoodCount.text = freshCount.ToString();
     }
     public void FreshMinusBTN()
     {
+        aud.Play();
         freshCount--;
         if (freshCount < 0)
         {
@@ -97,11 +105,13 @@ public class PosMNG : MonoBehaviour
 
     public void SnaPlusBTN()
     {
+        aud.Play();
         snaCount++;
         snackCount.text = snaCount.ToString();
     }
     public void SnaMinusBTN()
     {
+        aud.Play();
         snaCount--;
         if (snaCount < 0)
         {
@@ -112,11 +122,13 @@ public class PosMNG : MonoBehaviour
 
     public void CigaPlusBTN()
     {
+        aud.Play();
         cigaCount++;
         cigaretteCount.text = cigaCount.ToString();
     }
     public void CigaMinusBTN()
     {
+        aud.Play();
         cigaCount--;
         if (cigaCount < 0)
         {
@@ -127,11 +139,13 @@ public class PosMNG : MonoBehaviour
 
     public void CanPlusBTN()
     {
+        aud.Play();
         canCount++;
         candyCount.text = canCount.ToString();
     }
     public void CanMinusBTN()
     {
+        aud.Play();
         canCount--;
         if (canCount < 0)
         {

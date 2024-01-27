@@ -14,6 +14,8 @@ public class StartSceneMNG : MonoBehaviour
     public GameObject sTart;
     public GameObject qUit;
 
+    public AudioSource aud;
+
     string dialogue;
     string dialoguee;
     // Start is called before the first frame update
@@ -61,12 +63,14 @@ public class StartSceneMNG : MonoBehaviour
 
     public void StartBTN()
     {
+        aud.Play();
         SceneManager.LoadScene("StoryScene");
     }
     public void QuitBTN()
     {
+        aud.Play();
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit(); // 어플리케이션 종료
 #endif

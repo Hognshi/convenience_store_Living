@@ -6,12 +6,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 
 public class PlaySceneMNG : MonoBehaviour
 {
     public PosMNG pos;
     public CustomerGenerator csGen;
+
+    public AudioSource aud;
 
     public Button sellBTN; //계산 버튼
     public Button closeDayOverScreenBTN;
@@ -20,13 +21,15 @@ public class PlaySceneMNG : MonoBehaviour
     public Image sun;
 
     public Text workTimeText;
-    public Text memoText;
     public Text incomeText;
     public Text outcomeText;
     public Text orderText;//주문 확인 텍스트
 
     public GameObject sellPlace; // 판매품을 띄우는 공간
     public GameObject oneDayOverScreen; // 판매품을 띄우는 공간
+
+    public GameObject trueEndingScreen; 
+    public GameObject badEndingScreen; 
 
     public GameObject chocolate;
     public GameObject alcohol; 
@@ -42,8 +45,7 @@ public class PlaySceneMNG : MonoBehaviour
     float sec;
     [SerializeField]
     int min;
-    [SerializeField]
-    int workTime = 1; //게임중 몇일차인지
+    public int workTime = 1; //게임중 몇일차인지
     [SerializeField]
     bool isNewCustomer = true;
 
@@ -63,8 +65,7 @@ public class PlaySceneMNG : MonoBehaviour
     {
         GameTime();
         EnterEscape();
-
-        if(isNewCustomer)
+        if (isNewCustomer)
         {
             isNewCustomer = false;
             for(int i =0; i < csGen.customerList.Count(); i++)
@@ -73,7 +74,7 @@ public class PlaySceneMNG : MonoBehaviour
             }
             csGen.RandomCustomerCase();
         }
-        GameEnding();
+        
     }
 
 
@@ -202,8 +203,8 @@ public class PlaySceneMNG : MonoBehaviour
     {
         Time.timeScale = 0;
         oneDayOverScreen.SetActive(true);
-        outcomeText.text = $"오늘 손해 금액 : {lostMoney}";
-        incomeText.text = $"오늘 수입 금액 : {totalMoney}";
+        outcomeText.text = $"현재 총 손해 금액 : {lostMoney}";
+        incomeText.text = $"현재 총 수입 금액 : {totalMoney}";
     }
 
     void SellPlaceOrderMemo()
@@ -239,24 +240,29 @@ public class PlaySceneMNG : MonoBehaviour
 
     void GameEnding()
     {
-        if(lostMoney >= 100000)
+        if (lostMoney >= 100000)
         {
+            Time.timeScale = 0;
             SceneManager.LoadScene("FailEnding");
         }
-        if (workTime >= 16)
+        if (workTime == 6)
         {
+            Time.timeScale = 0;
             SceneManager.LoadScene("SuccessEnding");
         }
+
     }
 
-    public void SellItem()
+    public void SellItemBTN()
     {
+        aud.Play();
         sellPlace.SetActive(true);
         SellPlaceOrderMemo();
     }
 
     public void SellCompleteBTN()
     {
+        aud.Play();
         orderText.text = null;
         CountMoney();
         pos.choCount = 0;
@@ -276,9 +282,12 @@ public class PlaySceneMNG : MonoBehaviour
         isNewCustomer = true;
     }
 
-    public void CloseDayOverScreen()
+    public void CloseDayOverScreenBTN()
     {
+        aud.Play();
         oneDayOverScreen.SetActive(false);
         Time.timeScale = 1;
+
+        GameEnding();
     }
 }

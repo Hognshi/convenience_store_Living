@@ -57,63 +57,63 @@ public class CustomerGenerator : MonoBehaviour
         }
         switch (randomCustomer) //고객 나이대 유형
         {
-            case 0:
+            case 0: //아줌마
                 customerList[0].SetActive(true);
                 switch (customerCase)
                 {
                     case 0:
-                        customerText.text = "0손님 0케이스";
+                        customerText.text = "계산좀 해주세요";
                         break; 
                     case 1:
-                        customerText.text = "0손님 1케이스";
+                        customerText.text = "학생 계산좀";
                         break; 
                     case 2:
-                        customerText.text = "0손님 2케이스";
+                        customerText.text = "안녕하세요, 계산 부탁드릴게요.";
                         break;
                 }
                 break; 
-            case 1:
+            case 1: //아저씨
                 customerList[1].SetActive(true);
                 switch (customerCase)
                 {
                     case 0:
-                        customerText.text = "1손님 0케이스";
+                        customerText.text = "계산좀 해주세요";
                         break;
                     case 1:
-                        customerText.text = "1손님 1케이스";
+                        customerText.text = "학생 계산좀";
                         break;
                     case 2:
-                        customerText.text = "1손님 2케이스";
+                        customerText.text = "안녕하세요, 계산 부탁드릴게요.";
                         break;
                 }
                 break; 
-            case 2:
+            case 2: //할머니
                 customerList[2].SetActive(true);
                 switch (customerCase)
                 {
                     case 0:
-                        customerText.text = "2손님 0케이스";
+                        customerText.text = "학생 고생이 많네";
                         break;
                     case 1:
-                        customerText.text = "2손님 1케이스";
+                        customerText.text = "계산좀 해주시구려";
                         break;
                     case 2:
-                        customerText.text = "2손님 2케이스";
+                        customerText.text = "허허 학생 계산좀 해줘요~";
                         break;
                 }
                 break; 
-            case 3:
+            case 3: //할아버지
                 customerList[3].SetActive(true);
                 switch (customerCase)
                 {
                     case 0:
-                        customerText.text = "3손님 0케이스";
+                        customerText.text = "학생 계산해줘";
                         break; 
                     case 1:
-                        customerText.text = "3손님 1케이스";
+                        customerText.text = "학생이 고생이 많아";
                         break; 
                     case 2:
-                        customerText.text = "3손님 2케이스";
+                        customerText.text = "계산 고맙네";
                         break;
                 }
                 break; 

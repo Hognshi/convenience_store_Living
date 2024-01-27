@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class FailEndingMNG : MonoBehaviour
 {
+    public AudioSource aud;
     public Text fail;
     public GameObject exit;
     public GameObject retry;
@@ -13,6 +14,7 @@ public class FailEndingMNG : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         failText = "당신이 알바를 시작 한 이래로\n적자로 인한 손해가 심해져\n당신을 해고하기로 했습니다.";
         StartCoroutine(Typing(failText));
     }
@@ -47,10 +49,12 @@ public class FailEndingMNG : MonoBehaviour
 
     public void StartBTN()
     {
+        aud.Play();
         SceneManager.LoadScene("PlayScene");
     }
     public void QuitBTN()
     {
+        aud.Play();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
